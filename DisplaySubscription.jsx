@@ -1,18 +1,14 @@
-// src/Admin/DisplaySubscription.jsx
 import React from 'react';
 
 const DisplaySubscription = () => {
   return (
     <div>
-      <h2>Manage Subscriptions</h2>
+      <h1>Manage Subscriptions</h1>
       <div>
         <button>Add Subscription</button>
         <button>Logout</button>
       </div>
-
-      <div>
-        <input placeholder="Search service..." type="text" />
-      </div>
+      <input type="text" placeholder="Search service..." />
     </div>
   );
 };
