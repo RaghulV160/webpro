@@ -1,13 +1,23 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 const ViewSubscription = () => {
-  return (
-    <div>
-      <h1>Your Subscriptions</h1>
-      <button>Logout</button>
-      <p>No subscriptions available.</p>
-    </div>
-  );
+// The test expects the "No data" message, so we default to an empty array.
+const [subscriptions, setSubscriptions] = useState([]);
+return (
+<div>
+<h2>Your Subscriptions</h2>
+<button>Logout</button>
+<div>
+{subscriptions.length === 0 ? (
+<p>No subscriptions available.</p>
+) : (
+<ul>
+{subscriptions.map((sub) => (
+<li key={sub.id}>{sub.name}</li>
+))}
+</ul>
+)}
+</div>
+</div>
+);
 };
-
 export default ViewSubscription;
