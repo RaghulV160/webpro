@@ -1,25 +1,20 @@
-// src/Components/Login.jsx
 import React, { useState } from 'react';
 
 const Login = () => {
   const [errors, setErrors] = useState({});
 
-  const onSubmit = (e) => {
-    e && e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const newErrors = {};
-    const email = e?.target?.email?.value || '';
-    const password = e?.target?.password?.value || '';
-
-    if (!email) newErrors.email = 'Email is required';
-    if (!password) newErrors.password = 'Password is required';
-
+    if (!e.target.email.value) newErrors.email = 'Email is required';
+    if (!e.target.password.value) newErrors.password = 'Password is required';
     setErrors(newErrors);
   };
 
   return (
     <div>
       <h1>Login</h1>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <input name="email" placeholder="Email" />
         <input name="password" placeholder="Password" type="password" />
         <button type="submit">Login</button>
