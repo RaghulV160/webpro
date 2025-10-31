@@ -1,13 +1,11 @@
-// src/User/ViewSubscription.jsx
 import React from 'react';
 
 const ViewSubscription = () => {
-  // Minimal deterministic UI for tests
   return (
     <div>
-      <h2>Your Subscriptions</h2>
+      <h1>Your Subscriptions</h1>
       <button>Logout</button>
-      <div>No subscriptions available.</div>
+      <p>No subscriptions available.</p>
     </div>
   );
 };
