@@ -1,24 +1,24 @@
-// src/Admin/CreateSubscription.jsx
 import React, { useState } from 'react';
 
 const CreateSubscription = () => {
   const [errors, setErrors] = useState({});
 
-  // read localStorage token if present (tests mock this)
-  const token = typeof window !== 'undefined' ? window.localStorage.getItem('token') : null;
-
-  const onSubmit = (e) => {
-    e && e.preventDefault();
-    const serviceName = e?.target?.serviceName?.value || '';
-    const amount = e?.target?.amount?.value || '';
-    const billingCycle = e?.target?.billingCycle?.value || '';
-    const nextRenewalDate = e?.target?.nextRenewalDate?.value || '';
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const values = {
+      serviceName: e.target.serviceName.value,
+      amount: e.target.amount.value,
+      billingCycle: e.target.billingCycle.value,
+      nextRenewalDate: e.target.nextRenewalDate.value,
+    };
 
     const newErrors = {};
-    if (!serviceName) newErrors.serviceName = 'Service Name is required';
-    if (!amount || isNaN(Number(amount)) || Number(amount) <= 0) newErrors.amount = 'Valid amount is required';
-    if (!billingCycle) newErrors.billingCycle = 'Billing cycle is required';
-    if (!nextRenewalDate) newErrors.nextRenewalDate = 'Next renewal date is required';
+    if (!values.serviceName) newErrors.serviceName = 'Service Name is required';
+    if (!values.amount || isNaN(values.amount) || values.amount <= 0)
+      newErrors.amount = 'Valid amount is required';
+    if (!values.billingCycle) newErrors.billingCycle = 'Billing cycle is required';
+    if (!values.nextRenewalDate)
+      newErrors.nextRenewalDate = 'Next renewal date is required';
 
     setErrors(newErrors);
   };
@@ -28,11 +28,11 @@ const CreateSubscription = () => {
       <h1>Add Subscription</h1>
       <button>Back</button>
 
-      <form onSubmit={onSubmit}>
-        <input name="serviceName" placeholder="Service Name" />
-        <input name="amount" placeholder="Amount" />
-        <input name="billingCycle" placeholder="Billing Cycle" />
-        <input name="nextRenewalDate" placeholder="Next Renewal Date" />
+      <form onSubmit={handleSubmit}>
+        <input name="serviceName" />
+        <input name="amount" />
+        <input name="billingCycle" />
+        <input name="nextRenewalDate" />
         <button type="submit">Add Subscription</button>
       </form>
 
