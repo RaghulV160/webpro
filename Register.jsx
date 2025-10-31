@@ -1,18 +1,17 @@
-// src/Components/Register.jsx
 import React, { useState } from 'react';
 
 const Register = () => {
   const [errors, setErrors] = useState({});
 
-  const onSubmit = (e) => {
-    e && e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const values = {
-      firstName: e?.target?.firstName?.value || '',
-      lastName: e?.target?.lastName?.value || '',
-      email: e?.target?.email?.value || '',
-      mobileNumber: e?.target?.mobileNumber?.value || '',
-      password: e?.target?.password?.value || '',
-      confirmPassword: e?.target?.confirmPassword?.value || '',
+      firstName: e.target.firstName.value,
+      lastName: e.target.lastName.value,
+      email: e.target.email.value,
+      mobileNumber: e.target.mobileNumber.value,
+      password: e.target.password.value,
+      confirmPassword: e.target.confirmPassword.value,
     };
 
     const newErrors = {};
@@ -28,14 +27,14 @@ const Register = () => {
 
   return (
     <div>
-      <h2>Create Account</h2>
-      <form onSubmit={onSubmit}>
-        <input name="firstName" placeholder="First Name" />
-        <input name="lastName" placeholder="Last Name" />
-        <input name="email" placeholder="Email" />
-        <input name="mobileNumber" placeholder="Mobile Number" />
-        <input name="password" placeholder="Password" type="password" />
-        <input name="confirmPassword" placeholder="Confirm Password" type="password" />
+      <h1>Create Account</h1>
+      <form onSubmit={handleSubmit}>
+        <input name="firstName" />
+        <input name="lastName" />
+        <input name="email" />
+        <input name="mobileNumber" />
+        <input name="password" />
+        <input name="confirmPassword" />
         <button type="submit">Register</button>
       </form>
 
