@@ -3,12 +3,17 @@ import React from 'react';
 const DisplaySubscription = () => {
   return (
     <div>
-      <h1>Manage Subscriptions</h1>
+      <h2>Manage Subscriptions</h2>
       <div>
         <button>Add Subscription</button>
         <button>Logout</button>
       </div>
-      <input type="text" placeholder="Search service..." />
+      <div>
+        <input 
+          type="text" 
+          placeholder="Search service..." 
+        />
+      </div>
     </div>
   );
 };
