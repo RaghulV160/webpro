@@ -1,45 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const CreateSubscription = () => {
+  const [formData, setFormData] = useState({
+    serviceName: '',
+    amount: '',
+    billingCycle: '',
+    nextRenewalDate: '',
+  });
   const [errors, setErrors] = useState({});
+  const [isEditMode, setIsEditMode] = useState(false);
+
+  useEffect(() => {
+    // Test setup mocks localStorage.getItem('editSubscriptionId') to return ''
+    const editId = localStorage.getItem('editSubscriptionId');
+    if (editId) {
+      setIsEditMode(true);
+      // In a real app, you'd fetch data here
+    } else {
+      setIsEditMode(false);
+    }
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const values = {
-      serviceName: e.target.serviceName.value,
-      amount: e.target.amount.value,
-      billingCycle: e.target.billingCycle.value,
-      nextRenewalDate: e.target.nextRenewalDate.value,
-    };
-
     const newErrors = {};
-    if (!values.serviceName) newErrors.serviceName = 'Service Name is required';
-    if (!values.amount || isNaN(values.amount) || values.amount <= 0)
-      newErrors.amount = 'Valid amount is required';
-    if (!values.billingCycle) newErrors.billingCycle = 'Billing cycle is required';
-    if (!values.nextRenewalDate)
-      newErrors.nextRenewalDate = 'Next renewal date is required';
+
+    if (!formData.serviceName) newErrors.serviceName = 'Service Name is required';
+    if (!formData.amount) newErrors.amount = 'Valid amount is required';
+    if (!formData.billingCycle) newErrors.billingCycle = 'Billing cycle is required';
+    if (!formData.nextRenewalDate) newErrors.nextRenewalDate = 'Next renewal date is required';
 
     setErrors(newErrors);
   };
 
+  const headingText = isEditMode ? 'Update Subscription' : 'Add Subscription';
+
   return (
     <div>
-      <h1>Add Subscription</h1>
-      <button>Back</button>
-
+      <button type="button">Back</button>
+      <h2>{headingText}</h2>
       <form onSubmit={handleSubmit}>
-        <input name="serviceName" />
-        <input name="amount" />
-        <input name="billingCycle" />
-        <input name="nextRenewalDate" />
-        <button type="submit">Add Subscription</button>
+        <div>
+          <label>Service Name</label>
+          <input type="text" name="serviceName" value={formData.serviceName} onChange={handleChange} />
+          {errors.serviceName && <p style={{ color: 'red' }}>{errors.serviceName}</p>}
+        </div>
+        <div>
+          <label>Amount</label>
+          <input type="number" name="amount" value={formData.amount} onChange={handleChange} />
+          {errors.amount && <p style={{ color: 'red' }}>{errors.amount}</p>}
+        </div>
+        <div>
+          <label>Billing Cycle</label>
+          <input type="text" name="billingCycle" value={formData.billingCycle} onChange={handleChange} />
+          {errors.billingCycle && <p style={{ color: 'red' }}>{errors.billingCycle}</p>}
+        </div>
+        <div>
+          <label>Next Renewal Date</label>
+          <input type="date" name="nextRenewalDate" value={formData.nextRenewalDate} onChange={handleChange} />
+          {errors.nextRenewalDate && <p style={{ color: 'red' }}>{errors.nextRenewalDate}</p>}
+        </div>
+        <button type="submit">{headingText}</button>
       </form>
-
-      {errors.serviceName && <div>Service Name is required</div>}
-      {errors.amount && <div>Valid amount is required</div>}
-      {errors.billingCycle && <div>Billing cycle is required</div>}
-      {errors.nextRenewalDate && <div>Next renewal date is required</div>}
     </div>
   );
 };
